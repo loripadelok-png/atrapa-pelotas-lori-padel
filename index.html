@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,86 +12,111 @@
 tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Inter','sans-serif']},colors:{brand:{500:'#22c55e',600:'#16a34a'}}}}};
 </script>
 <style>
-*{box-sizing:border-box} html,body{height:100%;} body{font-family:Inter,sans-serif;overflow:hidden}
-.game-layout{height:calc(100dvh - 76px);min-height:0;}
-.game-panel{min-width:0;}
-.game-canvas{touch-action:manipulation;height:55vh;max-height:60vh;}
-.side-info,.side-cards{min-width:0;}
-@media (max-width: 900px){
- body{overflow:auto}.game-layout{height:auto;min-height:calc(100dvh - 76px);grid-template-columns:1fr;gap:14px;padding:14px;}
- .side-info{order:0}.game-panel{order:1}.side-cards{order:2;display:grid;grid-template-columns:1fr 1fr;}
- .game-canvas{height:52vh;min-height:280px;max-height:520px;}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{font-family:Inter,sans-serif;overflow:hidden}
+.game-layout{height:calc(100dvh - 76px);min-height:0}
+.game-panel{min-width:0}
+.game-canvas{touch-action:manipulation;height:55vh;max-height:60vh}
+.side-info,.side-cards{min-width:0}
+@media (max-width:900px){
+ body{overflow:auto}
+ .game-layout{height:auto;min-height:calc(100dvh - 76px);grid-template-columns:1fr;gap:14px;padding:14px}
+ .side-info{order:0}.game-panel{order:1}
+ .side-cards{order:2;display:grid;grid-template-columns:1fr 1fr}
+ .game-canvas{height:52vh;min-height:280px;max-height:520px}
 }
-@media (max-width: 560px){.side-cards{grid-template-columns:1fr}.game-canvas{height:48vh;min-height:260px;}}
-
+@media (max-width:560px){
+ .side-cards{grid-template-columns:1fr}
+ .game-canvas{height:48vh;min-height:260px}
+}
 @keyframes popIn{0%{transform:scale(.88);opacity:0}100%{transform:scale(1);opacity:1}}
 .animate-pop{animation:popIn .28s cubic-bezier(.175,.885,.32,1.275) both}
-@keyframes pulseGlow{0%,100%{box-shadow:0 0 15px rgba(236,72,153,.6),0 0 30px rgba(34,197,94,.3);transform:scale(1)}50%{box-shadow:0 0 25px rgba(236,72,153,.9),0 0 45px rgba(34,197,94,.7);transform:scale(1.05)}}
+@keyframes pulseGlow{
+ 0%,100%{box-shadow:0 0 15px rgba(236,72,153,.6),0 0 30px rgba(34,197,94,.3);transform:scale(1)}
+ 50%{box-shadow:0 0 25px rgba(236,72,153,.9),0 0 45px rgba(34,197,94,.7);transform:scale(1.05)}
+}
 .unlocked-glow{animation:pulseGlow 1.5s infinite}
 </style>
 </head>
+
 <body class="min-h-screen w-full bg-slate-900 text-slate-100 flex flex-col selection:bg-pink-500 selection:text-white">
+
 <header class="bg-slate-800/90 backdrop-blur-md border-b border-slate-700/60 sticky top-0 z-40">
-  <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-3">
-    <div class="flex items-center gap-3">
-      <div class="bg-gradient-to-tr from-pink-600 to-orange-400 p-2.5 rounded-xl shadow-lg"><i class="fa-solid fa-bullseye text-lg"></i></div>
-      <div><h1 class="font-extrabold text-lg text-white tracking-tight">ATRAPA PELOTAS <span class="text-[11px] px-2 py-1 bg-pink-500/20 text-pink-300 border border-pink-500/30 rounded-full">LORI PADEL</span></h1>
-      <p class="text-[11px] text-slate-400">Jugá durante 30 segundos, registrá tus iniciales y buscá tu lugar en el ranking</p></div>
-    </div>
-    <div class="flex items-center gap-2">
-      <button onclick="openLeaderboardDirectly()" class="px-3 py-2 rounded-xl text-xs font-bold bg-slate-700 hover:bg-slate-600"><i class="fa-solid fa-trophy text-amber-300 mr-1"></i> Tabla de posiciones</button>
-    </div>
+ <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-3">
+  <div class="flex items-center gap-3">
+   <div class="bg-gradient-to-tr from-pink-600 to-orange-400 p-2.5 rounded-xl shadow-lg">
+    <i class="fa-solid fa-bullseye text-lg"></i>
+   </div>
+   <div>
+    <h1 class="font-extrabold text-lg text-white tracking-tight">
+     ATRAPA PELOTAS
+     <span class="text-[11px] px-2 py-1 bg-pink-500/20 text-pink-300 border border-pink-500/30 rounded-full">LORI PADEL</span>
+    </h1>
+    <p class="text-[11px] text-slate-400">Jugá durante 30 segundos, registrá tus iniciales y buscá tu lugar en el ranking</p>
+   </div>
   </div>
+  <div class="flex items-center gap-2">
+   <button onclick="openLeaderboardDirectly()" class="px-3 py-2 rounded-xl text-xs font-bold bg-slate-700 hover:bg-slate-600">
+    <i class="fa-solid fa-trophy text-amber-300 mr-1"></i> Tabla de posiciones
+   </button>
+  </div>
+ </div>
 </header>
 
 <main class="game-layout flex-1 w-full mx-auto px-3 py-3 grid grid-cols-[20%_60%_20%] gap-0 items-center">
-  <section class="side-info text-center space-y-3 px-2">
-    <span class="inline-flex px-3 py-1 rounded-full text-[11px] font-bold bg-pink-500/10 text-pink-300 border border-pink-500/30">🎾 ¡EL DESAFÍO LORI PADEL!</span>
-    <h2 class="text-2xl xl:text-3xl font-black text-white">¿Cuántas pelotas podés <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-orange-300">atrapar?</span></h2>
-    <p class="text-slate-400 text-sm">Tenés 30 segundos para atrapar la mayor cantidad de pelotas. Cada acierto suma 10 puntos y cada error resta 3.</p>
-  </section>
 
-  <section class="game-panel w-full bg-slate-800/80 border border-slate-700 rounded-2xl p-3 sm:p-4 shadow-xl">
-    <div class="flex flex-wrap justify-between items-center gap-3 mb-3">
-      <div class="flex items-center gap-2">
-        <button type="button" onclick="authorizeLogoChange()" class="px-3 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-xl text-xs font-semibold">
-          <i class="fa-solid fa-upload text-pink-300 mr-1"></i> Cambiar logo
-        </button>
-        <span class="text-[10px] text-slate-500">Podés personalizar las pelotas con tu logo</span>
-      </div>
-      <div class="flex gap-2 text-xs font-bold">
-        <div class="bg-slate-950 px-3 py-2 rounded-xl border border-slate-700 text-pink-300">Puntos: <span id="catcher-score">0</span></div>
-        <div class="bg-slate-950 px-3 py-2 rounded-xl border border-slate-700 text-rose-300">Tiempo: <span id="catcher-time">30</span>s</div>
-      </div>
-    </div>
-    <div class="relative overflow-hidden rounded-xl border border-slate-700 bg-slate-950">
-      <canvas id="catcherCanvas" class="game-canvas block w-full h-[55vh] min-h-[260px] max-h-[60vh] cursor-crosshair"></canvas>
-      <div id="catcher-overlay" class="absolute inset-0 bg-slate-950/90 backdrop-blur-sm flex flex-col items-center justify-center gap-3 p-6 text-center">
-        <div id="overlay-logo-fallback" class="w-20 h-20 rounded-full bg-pink-500/10 border-2 border-pink-500/50 flex items-center justify-center text-pink-300 text-2xl"><i class="fa-solid fa-bullseye"></i></div>
-        <img id="overlay-logo" alt="Logo" class="hidden w-24 h-24 object-contain rounded-full">
-        <h3 class="text-xl font-black">TE INVITA A JUGAR</h3>
-        <p class="text-slate-300 text-sm max-w-md">Tenés 30 segundos para atrapar la mayor cantidad de pelotas. ¡Dejá tu récord en la tabla!</p>
-        <button id="start-game-btn" onclick="startCatcherGame()" class="px-7 py-3 bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white rounded-xl text-sm font-extrabold shadow-lg">¡COMENZAR PARTIDA!</button>
-      </div>
-    </div>
+ <section class="side-info text-center space-y-3 px-2">
+  <span class="inline-flex px-3 py-1 rounded-full text-[11px] font-bold bg-pink-500/10 text-pink-300 border border-pink-500/30">🎾 ¡EL DESAFÍO LORI PADEL!</span>
+  <h2 class="text-2xl xl:text-3xl font-black text-white">
+   ¿Cuántas pelotas podés
+   <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-orange-300">atrapar?</span>
+  </h2>
+  <p class="text-slate-400 text-sm">Tenés 30 segundos para atrapar la mayor cantidad de pelotas. Cada acierto suma 10 puntos y cada error resta 3.</p>
+ </section>
 
-  </section>
+ <section class="game-panel w-full bg-slate-800/80 border border-slate-700 rounded-2xl p-3 sm:p-4 shadow-xl">
+  <div class="flex flex-wrap justify-between items-center gap-3 mb-3">
+   <div class="flex items-center gap-2">
+    <button type="button" onclick="authorizeLogoChange()" class="px-3 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-xl text-xs font-semibold">
+     <i class="fa-solid fa-upload text-pink-300 mr-1"></i> Cambiar logo
+    </button>
+    <span class="text-[10px] text-slate-500">Podés personalizar las pelotas con tu logo</span>
+   </div>
+   <div class="flex gap-2 text-xs font-bold">
+    <div class="bg-slate-950 px-3 py-2 rounded-xl border border-slate-700 text-pink-300">Puntos: <span id="catcher-score">0</span></div>
+    <div class="bg-slate-950 px-3 py-2 rounded-xl border border-slate-700 text-rose-300">Tiempo: <span id="catcher-time">30</span>s</div>
+   </div>
+  </div>
 
-  </section>
+  <div class="relative overflow-hidden rounded-xl border border-slate-700 bg-slate-950">
+   <canvas id="catcherCanvas" class="game-canvas block w-full h-[55vh] min-h-[260px] max-h-[60vh] cursor-crosshair"></canvas>
 
-  <section class="side-cards px-2 flex flex-col gap-3">
-    <div class="bg-slate-800/60 border border-slate-700 rounded-2xl p-3 xl:p-4">
-      <h3 class="font-bold text-sm text-white mb-1"><i class="fa-solid fa-gift text-pink-300 mr-2"></i>¿Cómo jugar?</h3>
-      <p class="text-xs leading-relaxed text-slate-400">Al terminar, ingresá tus tres iniciales para registrar tu puntaje. Escaneá el QR de la tabla y seguí las instrucciones del post para participar del sorteo.</p>
+   <div id="catcher-overlay" class="absolute inset-0 bg-slate-950/90 backdrop-blur-sm flex flex-col items-center justify-center gap-3 p-6 text-center">
+    <div id="overlay-logo-fallback" class="w-20 h-20 rounded-full bg-pink-500/10 border-2 border-pink-500/50 flex items-center justify-center text-pink-300 text-2xl">
+     <i class="fa-solid fa-bullseye"></i>
     </div>
-    <div class="bg-slate-800/60 border border-slate-700 rounded-2xl p-3 xl:p-4">
-      <h3 class="font-bold text-sm text-white mb-1"><i class="fa-solid fa-calendar-days text-amber-300 mr-2"></i>¿Cuándo es el sorteo?</h3>
-      <p class="text-xs leading-relaxed text-slate-400">El sorteo se realizará al comienzo del mes siguiente. ¡Mucha suerte!</p>
-    </div>
-  </section>
+    <img id="overlay-logo" alt="Logo" class="hidden w-24 h-24 object-contain rounded-full">
+    <h3 class="text-xl font-black">TE INVITA A JUGAR</h3>
+    <p class="text-slate-300 text-sm max-w-md">Tenés 30 segundos para atrapar la mayor cantidad de pelotas. ¡Dejá tu récord en la tabla!</p>
+    <button id="start-game-btn" onclick="startCatcherGame()" class="px-7 py-3 bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white rounded-xl text-sm font-extrabold shadow-lg">¡COMENZAR PARTIDA!</button>
+   </div>
+  </div>
+ </section>
+
+ <section class="side-cards px-2 flex flex-col gap-3">
+  <div class="bg-slate-800/60 border border-slate-700 rounded-2xl p-3 xl:p-4">
+   <h3 class="font-bold text-sm text-white mb-1"><i class="fa-solid fa-gift text-pink-300 mr-2"></i>¿Cómo jugar?</h3>
+   <p class="text-xs leading-relaxed text-slate-400">Al terminar, ingresá tus tres iniciales para registrar tu puntaje. Escaneá el QR de la tabla y seguí las instrucciones del post para participar del sorteo.</p>
+  </div>
+  <div class="bg-slate-800/60 border border-slate-700 rounded-2xl p-3 xl:p-4">
+   <h3 class="font-bold text-sm text-white mb-1"><i class="fa-solid fa-calendar-days text-amber-300 mr-2"></i>¿Cuándo es el sorteo?</h3>
+   <p class="text-xs leading-relaxed text-slate-400">El sorteo se realizará al comienzo del mes siguiente. ¡Mucha suerte!</p>
+  </div>
+ </section>
 </main>
 
-<!-- Ingreso arcade de iniciales -->
+<!-- INGRESO DE INICIALES -->
 <div id="initials-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[100] hidden items-center justify-center p-4">
  <div class="bg-slate-900 border-2 border-pink-500 rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl animate-pop">
   <div class="text-amber-300 text-xs font-black tracking-[.25em]">NEW HIGH SCORE</div>
@@ -102,36 +128,47 @@ tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Inter','sans
  </div>
 </div>
 
-<!-- Tabla arcade y QR del sorteo -->
+<!-- TABLA Y QR -->
 <div id="leaderboard-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[100] hidden items-center justify-center p-3 sm:p-4">
  <div class="bg-slate-900 border-2 border-pink-500 rounded-3xl max-w-5xl w-full p-4 sm:p-6 shadow-2xl relative flex flex-col max-h-[94vh]">
-  <button onclick="closeLeaderboardModal()" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-slate-800 hover:bg-rose-600 text-slate-300 flex items-center justify-center" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+  <button onclick="closeLeaderboardModal()" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-slate-800 hover:bg-rose-600 text-slate-300 flex items-center justify-center" aria-label="Cerrar">
+   <i class="fa-solid fa-xmark"></i>
+  </button>
   <div class="absolute top-4 right-16 flex items-center gap-3">
    <button onclick="authorizeQrChange()" class="text-white font-black text-sm tracking-widest hover:text-pink-300 px-1 py-1" title="Cambiar código QR">QR</button>
    <button onclick="authorizeLeaderboardClear()" class="text-white font-black text-sm tracking-widest hover:text-rose-300 px-1 py-1" title="Limpiar tabla de posiciones">LT</button>
   </div>
+
   <h3 class="text-center text-xl sm:text-2xl font-black text-white mb-4 pr-16">TABLA DE POSICIONES</h3>
+
   <div class="grid md:grid-cols-12 gap-4 flex-1 min-h-0 overflow-hidden">
    <div class="md:col-span-7 bg-slate-950 border border-slate-700 rounded-2xl p-3 sm:p-4 flex flex-col min-h-0 overflow-hidden">
-    <div class="flex justify-between items-center text-xs text-slate-300 border-b border-slate-800 pb-2"><strong>RANKING DE COMPETIDORES</strong><span id="total-competitors-badge" class="text-amber-300">0 récords</span></div>
+    <div class="flex justify-between items-center text-xs text-slate-300 border-b border-slate-800 pb-2">
+     <strong>RANKING DE COMPETIDORES</strong>
+     <span id="total-competitors-badge" class="text-amber-300">0 récords</span>
+    </div>
     <div id="leaderboard-list" class="space-y-1 mt-3 overflow-y-auto flex-1 min-h-0 scroll-smooth pr-1" style="height:540px;max-height:calc(94dvh - 250px);"></div>
    </div>
+
    <div class="md:col-span-5 bg-gradient-to-br from-slate-950 via-slate-900 to-pink-950/30 border border-pink-500/40 rounded-2xl p-4 flex flex-col items-center justify-center text-center gap-3">
     <div class="text-pink-200 text-sm sm:text-base font-black leading-snug">¡SEGUÍ LAS INSTRUCCIONES DEL POST Y PARTICIPÁ!</div>
-    <div class="bg-white rounded-2xl p-2 max-w-[190px] shadow-xl border-4 border-pink-300"><img id="sorteo-qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVgAAAFYAQAAAAA+F9ntAAACeElEQVR4nO2a224bQQxDycL//8vsAyllXKBAsI7dma2CxLDX54EQJrpQQ+HbP7++jw477LA3YCGp30HoXwH9F24HvaexDyAxZP4SUPqNlm930HsmSxIABYkEHVQSctTJD2i4J/tYPxCgABAOLSF+QMN/w6rSrpIb9Hf2XRpuxvr8VhwJiD6zzr9cv91B72nsA0gUASD5QBRE0LHub3fQexrLJQUQDm3iij9Hux30nsZSQDKCqrr1I1UH4VDvoPdEVpDHDIpIL0b5ac4x363hziwBEUzDIJCQfITzMvPFy2xKWbJBwk3RaWPyw0U29c1JwaWtWrOv2UIEtIfe01j/77fFAFQHrGqAxel/r7OVWyFCVD520Ku14JzfV9jkWBEg1baO00WbaPvoPYeNv+NpDZ0MlEEjJ3f8s6ssk3oTzsoQ6XvZM8ac31fYsnLcPji2kk3h9MRv13Bf1nlBsXWqvIGZN/JkH73HsYSPrbIgYjZwfq50FPvoPY2txSbTRoiM2SMuLvs2eg9iH0DqV8aLGpAFUawN0fS/r7BcFvOCmzKvOetoT/59ga1RrfeZtbagRKeK8ScvspkvGNNMHjLYHkRXuzdquD1bsfQLWetj92uie7R99B7EplGI0dDLoPIry1sDp75dYst/qKH4yU4r70HjP1xln/fHqvs7Ir5M4PKAd9B7Gtv+b5sQYg8U3tSn1u2h9zR2vT9JuJ493aPM2n7q2zXW+bccHGRd3Jsh1qWTyQ8/wMqb4jRpdb9ayK2I7fSexpbz27v5ZTj+lIabsev9SS2ubzYaNTlP/r3Irvcny5QsE5hlrc39qMvs2v/+Kw3DDjvsnuxvtU09qa2n0vEAAAAASUVORK5CYII=" alt="QR para participar del sorteo de Instagram" class="w-full h-auto rounded-xl object-contain"></div>
+    <div class="bg-white rounded-2xl p-2 max-w-[190px] shadow-xl border-4 border-pink-300">
+     <img id="sorteo-qr-img" src="https://evzewffomnjsygzxxhvn.supabase.co/storage/v1/object/public/imagenes/qr%20de%20inta%20noviembre.png" alt="QR para participar del sorteo de Instagram" class="w-full h-auto rounded-xl object-contain">
+    </div>
    </div>
   </div>
+
   <div class="flex justify-center mt-4">
    <button onclick="closeLeaderboardModal();prepareNextGame()" class="px-8 py-3 bg-gradient-to-r from-emerald-400 to-teal-500 hover:from-emerald-300 hover:to-teal-400 text-slate-950 rounded-xl text-sm font-black">VOLVER A JUGAR</button>
   </div>
  </div>
 </div>
 
-<!-- Confirmación de limpieza de tabla -->
+<!-- CONFIRMACIÓN DE LIMPIEZA -->
 <div id="clear-leaderboard-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[130] hidden items-center justify-center p-4">
  <div class="bg-slate-900 border-2 border-rose-500 rounded-2xl max-w-md w-full p-6 text-center shadow-2xl animate-pop">
   <div class="text-rose-300 text-3xl mb-3"><i class="fa-solid fa-triangle-exclamation"></i></div>
-  <h3 class="text-lg sm:text-xl font-black text-white leading-snug">ESTÁS SEGURO QUE QUERÉS LIMPIAR TABLA DE POSICIONES</h3>
+  <h3 class="text-lg sm:text-xl font-black text-white leading-snug">¿ESTÁS SEGURO QUE QUERÉS LIMPIAR LA TABLA DE POSICIONES?</h3>
   <div class="flex gap-3 mt-6">
    <button onclick="confirmClearLeaderboard()" class="flex-1 px-4 py-3 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-sm font-black">ACEPTAR</button>
    <button onclick="cancelClearLeaderboard()" class="flex-1 px-4 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-xl text-sm font-black">CANCELAR</button>
@@ -139,174 +176,551 @@ tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Inter','sans
  </div>
 </div>
 
-<!-- Selector oculto: solo se activa después de validar la contraseña -->
-<input id="logo-file-input" type="file" accept="image/*" class="hidden" onchange="loadCustomLogoFile(event)">
-<input id="qr-file-input" type="file" accept="image/*" class="hidden" onchange="loadCustomQrFile(event)">
 <footer class="text-center text-[10px] text-slate-600 py-3 border-t border-slate-800">LORI PADEL · ATRAPA PELOTAS</footer>
 
 <script>
-// Acceso seguro al almacenamiento: algunos navegadores restringen localStorage
-// cuando el HTML se abre directamente desde el disco (file://).
-function safeStorageGet(key){try{return window.localStorage.getItem(key);}catch(e){return null;}}
-function safeStorageSet(key,value){try{window.localStorage.setItem(key,value);return true;}catch(e){return false;}}
-function safeStorageRemove(key){try{window.localStorage.removeItem(key);return true;}catch(e){return false;}}
-const SCORES_KEY='lori_arcade_scores';
-const QR_KEY='lori_saved_sorteo_qr';
-let arcadeScores=[];
-try{arcadeScores=JSON.parse(safeStorageGet(SCORES_KEY)||'[]');if(!Array.isArray(arcadeScores))arcadeScores=[];}catch(e){arcadeScores=[];}
-let catcherActive=false,catcherScore=0,catcherTimeLeft=30,catcherBalls=[],catcherTimerInterval=null,catcherAnimId=null;
-let lastSavedScoreId=null, leaderboardHighlightTimer=null, pendingScoreEntry=null, highlightedScoreId=null;
-let loriLogoImg=new Image();
-loriLogoImg.src=safeStorageGet('lori_saved_logo')||'';
+// ==========================================
+// CONFIGURACIÓN SUPABASE
+// ==========================================
+const SUPABASE_URL = 'https://evzewffomnjsygzxxhvn.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_cKxFshvCvL3ucrooafVyOw_useI5u-h';
 
-function updateOverlayLogo(){
- const logo=document.getElementById('overlay-logo'),fallback=document.getElementById('overlay-logo-fallback');
- if(!logo||!fallback)return;
- const saved=safeStorageGet('lori_saved_logo');
- if(saved){logo.src=saved;logo.classList.remove('hidden');fallback.classList.add('hidden');}
- else{logo.classList.add('hidden');fallback.classList.remove('hidden');}
+const RANKING_FUNCTION = `${SUPABASE_URL}/functions/v1/ranking-lori-padel`;
+const RANKING_TABLE = `${SUPABASE_URL}/rest/v1/ranking`;
+
+const LOGO_URL = 'https://evzewffomnjsygzxxhvn.supabase.co/storage/v1/object/public/imagenes/LOGO%20LORI%20PADEL%20EN%20VIVO.png';
+const QR_URL = 'https://evzewffomnjsygzxxhvn.supabase.co/storage/v1/object/public/imagenes/qr%20de%20inta%20noviembre.png';
+
+const supabaseHeaders = {
+ 'apikey': SUPABASE_KEY,
+ 'Content-Type': 'application/json'
+};
+
+// ==========================================
+// ESTADO DEL JUEGO
+// ==========================================
+const SCORES_KEY='lori_arcade_scores';
+let arcadeScores=[];
+let catcherActive=false;
+let catcherScore=0;
+let catcherTimeLeft=30;
+let catcherBalls=[];
+let catcherTimerInterval=null;
+let catcherAnimId=null;
+
+let pendingScoreEntry=null;
+let highlightedScoreId=null;
+let leaderboardHighlightTimer=null;
+
+let loriLogoImg=new Image();
+loriLogoImg.src=LOGO_URL;
+
+// ==========================================
+// RANKING COMPARTIDO SUPABASE
+// ==========================================
+async function loadRemoteRanking() {
+ const list=document.getElementById('leaderboard-list');
+ list.innerHTML='<p class="text-center text-slate-400 py-4">Cargando ranking...</p>';
+
+ try {
+  const response=await fetch(
+   `${RANKING_TABLE}?select=id,initials,score,created_at&order=score.desc,created_at.asc`,
+   {headers:supabaseHeaders}
+  );
+
+  if(!response.ok) {
+   const detail=await response.text();
+   throw new Error(`Error al consultar ranking: ${response.status} ${detail}`);
+  }
+
+  const data=await response.json();
+
+  arcadeScores=data.map(item=>({
+   id:item.id,
+   initials:item.initials,
+   score:item.score,
+   date:new Date(item.created_at).getTime()
+  }));
+
+  renderLeaderboard(false);
+  return true;
+
+ } catch(error) {
+  console.error(error);
+  list.innerHTML='<p class="text-center text-rose-300 py-4">No se pudo cargar el ranking. Revisá tu conexión e intentá nuevamente.</p>';
+  return false;
+ }
 }
-function authorizeLogoChange(){
+
+async function sendRankingAction(payload) {
+ const response=await fetch(RANKING_FUNCTION,{
+  method:'POST',
+  headers:supabaseHeaders,
+  body:JSON.stringify(payload)
+ });
+
+ const result=await response.json().catch(()=>({}));
+
+ if(!response.ok) {
+  throw new Error(result.error||`Error del servidor (${response.status})`);
+ }
+
+ return result;
+}
+
+// ==========================================
+// LOGO
+// ==========================================
+function updateOverlayLogo() {
+ const logo=document.getElementById('overlay-logo');
+ const fallback=document.getElementById('overlay-logo-fallback');
+
+ if(!logo||!fallback)return;
+
+ logo.onload=()=>{
+  logo.classList.remove('hidden');
+  fallback.classList.add('hidden');
+ };
+
+ logo.onerror=()=>{
+  logo.classList.add('hidden');
+  fallback.classList.remove('hidden');
+ };
+
+ logo.src=LOGO_URL;
+}
+
+function authorizeLogoChange() {
  const password=prompt('Ingresá la contraseña para cambiar el logo:');
  if(password===null)return;
- if(password==='82318'){document.getElementById('logo-file-input').click();}
- else{alert('Contraseña incorrecta.');}
+
+ if(password==='82318') {
+  alert('Para cambiar el logo de todos los visitantes, reemplazá el archivo "LOGO LORI PADEL EN VIVO.png" en Supabase Storage, dentro del bucket "imagenes". Conservá exactamente el mismo nombre.');
+ } else {
+  alert('Contraseña incorrecta.');
+ }
 }
-function loadCustomLogoFile(event){
- const file=event.target.files&&event.target.files[0];if(!file)return;
- if(!file.type.startsWith('image/')){alert('Seleccioná un archivo de imagen.');event.target.value='';return;}
- const reader=new FileReader();reader.onload=e=>{loriLogoImg.src=e.target.result;safeStorageSet('lori_saved_logo',e.target.result);updateOverlayLogo();};
- reader.readAsDataURL(file);event.target.value='';
-}
-function startCatcherGame(){
+
+// ==========================================
+// INICIO Y MECÁNICA DEL JUEGO
+// ==========================================
+function startCatcherGame() {
  document.getElementById('catcher-overlay').classList.add('hidden');
- catcherActive=true;catcherScore=0;catcherTimeLeft=30;catcherBalls=[];
- document.getElementById('catcher-score').textContent='0';document.getElementById('catcher-time').textContent='30';
- const canvas=document.getElementById('catcherCanvas');canvas.width=canvas.clientWidth;canvas.height=canvas.clientHeight;
+
+ catcherActive=true;
+ catcherScore=0;
+ catcherTimeLeft=30;
+ catcherBalls=[];
+
+ document.getElementById('catcher-score').textContent='0';
+ document.getElementById('catcher-time').textContent='30';
+
+ const canvas=document.getElementById('catcherCanvas');
+ canvas.width=canvas.clientWidth;
+ canvas.height=canvas.clientHeight;
+
  if(catcherTimerInterval)clearInterval(catcherTimerInterval);
  if(catcherAnimId)cancelAnimationFrame(catcherAnimId);
+
  catcherTimerInterval=setInterval(()=>{
-  catcherTimeLeft--;document.getElementById('catcher-time').textContent=catcherTimeLeft;
-  if(catcherTimeLeft<=0){clearInterval(catcherTimerInterval);finishCatcherGame();}
+  catcherTimeLeft--;
+  document.getElementById('catcher-time').textContent=catcherTimeLeft;
+
+  if(catcherTimeLeft<=0) {
+   clearInterval(catcherTimerInterval);
+   finishCatcherGame();
+  }
  },1000);
+
  loopCatcher();
 }
-function finishCatcherGame(){
+
+function finishCatcherGame() {
  if(!catcherActive)return;
- catcherActive=false;clearInterval(catcherTimerInterval);cancelAnimationFrame(catcherAnimId);
+
+ catcherActive=false;
+ clearInterval(catcherTimerInterval);
+ cancelAnimationFrame(catcherAnimId);
+
  document.getElementById('final-score').textContent=catcherScore+' puntos';
- const modal=document.getElementById('initials-modal');modal.classList.remove('hidden');modal.classList.add('flex');
- const input=document.getElementById('initials-input');input.value='';setTimeout(()=>input.focus(),50);
+
+ const modal=document.getElementById('initials-modal');
+ modal.classList.remove('hidden');
+ modal.classList.add('flex');
+
+ const input=document.getElementById('initials-input');
+ input.value='';
+ setTimeout(()=>input.focus(),50);
 }
-function showOverlay(title,message,buttonText){
- const overlay=document.getElementById('catcher-overlay');overlay.classList.remove('hidden');
- overlay.innerHTML=`<div class="w-14 h-14 rounded-full bg-pink-500/10 border-2 border-pink-500/50 flex items-center justify-center text-pink-300 text-2xl"><i class="fa-solid fa-trophy"></i></div><h3 class="text-xl font-black text-white">${title}</h3><p class="text-sm text-slate-300 max-w-md">${message}</p><button onclick="startCatcherGame()" class="px-6 py-3 bg-pink-600 hover:bg-pink-500 text-white rounded-xl text-xs font-bold">${buttonText}</button>`;
-}
-function loopCatcher(){
+
+function loopCatcher() {
  if(!catcherActive)return;
- const canvas=document.getElementById('catcherCanvas'),ctx=canvas.getContext('2d');ctx.clearRect(0,0,canvas.width,canvas.height);
- if(Math.random()<.045&&catcherBalls.length<7){const radius=25;catcherBalls.push({x:Math.random()*(canvas.width-radius*2)+radius,y:-radius*2,radius,speed:Math.random()*2+1.5});}
- for(let i=catcherBalls.length-1;i>=0;i--){const b=catcherBalls[i];b.y+=b.speed;ctx.save();ctx.beginPath();ctx.arc(b.x,b.y,b.radius,0,Math.PI*2);ctx.clip();
-  if(loriLogoImg.complete&&loriLogoImg.naturalWidth>0)ctx.drawImage(loriLogoImg,b.x-b.radius,b.y-b.radius,b.radius*2,b.radius*2);else{ctx.fillStyle='#ec4899';ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=3;ctx.stroke();}ctx.restore();
-  if(b.y>canvas.height+b.radius)catcherBalls.splice(i,1);
+
+ const canvas=document.getElementById('catcherCanvas');
+ const ctx=canvas.getContext('2d');
+
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+
+ if(Math.random()<.045&&catcherBalls.length<7) {
+  const radius=25;
+  catcherBalls.push({
+   x:Math.random()*(canvas.width-radius*2)+radius,
+   y:-radius*2,
+   radius,
+   speed:Math.random()*2+1.5
+  });
  }
+
+ for(let i=catcherBalls.length-1;i>=0;i--) {
+  const b=catcherBalls[i];
+  b.y+=b.speed;
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(b.x,b.y,b.radius,0,Math.PI*2);
+  ctx.clip();
+
+  if(loriLogoImg.complete&&loriLogoImg.naturalWidth>0) {
+   ctx.drawImage(loriLogoImg,b.x-b.radius,b.y-b.radius,b.radius*2,b.radius*2);
+  } else {
+   ctx.fillStyle='#ec4899';
+   ctx.fill();
+   ctx.strokeStyle='#fff';
+   ctx.lineWidth=3;
+   ctx.stroke();
+  }
+
+  ctx.restore();
+
+  if(b.y>canvas.height+b.radius) {
+   catcherBalls.splice(i,1);
+  }
+ }
+
  catcherAnimId=requestAnimationFrame(loopCatcher);
 }
-function catchBallAt(clientX,clientY){
- if(!catcherActive)return;const canvas=document.getElementById('catcherCanvas'),rect=canvas.getBoundingClientRect(),x=clientX-rect.left,y=clientY-rect.top;let hit=false;
- for(let i=catcherBalls.length-1;i>=0;i--){const b=catcherBalls[i];if(Math.hypot(x-b.x,y-b.y)<=b.radius){catcherScore+=10;catcherBalls.splice(i,1);hit=true;break;}}
- if(!hit)catcherScore=Math.max(0,catcherScore-3);document.getElementById('catcher-score').textContent=catcherScore;
-}
-const catcherCanvas=document.getElementById('catcherCanvas');
-catcherCanvas.addEventListener('pointerdown',e=>{e.preventDefault();catchBallAt(e.clientX,e.clientY);});
 
-function saveArcadeScore(){
- const initials=document.getElementById('initials-input').value.trim().toUpperCase();
- if(!/^[A-Z]{3}$/.test(initials)){alert('Ingresá exactamente tres letras.');return;}
- const newEntry={id:'score-'+Date.now()+'-'+Math.random().toString(36).slice(2,7),initials,score:catcherScore,date:Date.now()};
- arcadeScores.push(newEntry);
- arcadeScores.sort((a,b)=>b.score-a.score||a.date-b.date);// Se conservan todos los resultados; no hay límite de 100 registros.
- safeStorageSet(SCORES_KEY,JSON.stringify(arcadeScores));
- pendingScoreEntry=newEntry;highlightedScoreId=newEntry.id;
- const modal=document.getElementById('initials-modal');modal.classList.add('hidden');modal.classList.remove('flex');
- openLeaderboardDirectly();
-}
-function renderLeaderboard(showNewEntryAtTop=false){
- const list=document.getElementById('leaderboard-list'),badge=document.getElementById('total-competitors-badge');
- badge.textContent=arcadeScores.length+' récords';
- let rows=arcadeScores.slice();
- // El último resultado se presenta arriba durante 3 segundos; luego ocupa su puesto real.
- if(showNewEntryAtTop&&pendingScoreEntry){rows=rows.filter(x=>x.id!==pendingScoreEntry.id);rows.unshift(pendingScoreEntry);}
- list.innerHTML='';
- const totalRows=Math.max(15,rows.length);
- for(let i=0;i<totalRows;i++){
-  const p=rows[i];
-  const row=document.createElement('div');
-  row.className='leaderboard-row '+(p?'bg-slate-900 border border-slate-800':'bg-slate-950/50 border border-slate-800/60')+' rounded-lg px-2 py-1 text-sm flex items-center justify-between gap-3';
-  row.style.minHeight='32px';
-  if(p)row.dataset.scoreId=p.id;
-  const left=document.createElement('div');left.className='flex items-center gap-3';
-  const rank=document.createElement('span');rank.className='text-amber-400 font-black text-sm w-7';rank.textContent='#'+(i+1);
-  const initials=document.createElement('strong');initials.className='text-white text-base tracking-[.2em]';initials.textContent=p?p.initials:'---';
-  left.append(rank,initials);
-  const points=document.createElement('strong');points.className='text-emerald-400 text-sm whitespace-nowrap';points.textContent=p?p.score+' pts':'— pts';
-  row.append(left,points);
-  if(p&&highlightedScoreId&&p.id===highlightedScoreId){
-   row.classList.add('!bg-amber-400/20','!border-amber-300','ring-2','ring-amber-300');
-   initials.classList.add('!text-amber-200');points.classList.add('!text-amber-200');
+function catchBallAt(clientX,clientY) {
+ if(!catcherActive)return;
+
+ const canvas=document.getElementById('catcherCanvas');
+ const rect=canvas.getBoundingClientRect();
+
+ const x=clientX-rect.left;
+ const y=clientY-rect.top;
+
+ let hit=false;
+
+ for(let i=catcherBalls.length-1;i>=0;i--) {
+  const b=catcherBalls[i];
+
+  if(Math.hypot(x-b.x,y-b.y)<=b.radius) {
+   catcherScore+=10;
+   catcherBalls.splice(i,1);
+   hit=true;
+   break;
   }
+ }
+
+ if(!hit) {
+  catcherScore=Math.max(0,catcherScore-3);
+ }
+
+ document.getElementById('catcher-score').textContent=catcherScore;
+}
+
+const catcherCanvas=document.getElementById('catcherCanvas');
+
+catcherCanvas.addEventListener('pointerdown',e=>{
+ e.preventDefault();
+ catchBallAt(e.clientX,e.clientY);
+});
+
+// ==========================================
+// GUARDAR PUNTAJE EN SUPABASE
+// ==========================================
+async function saveArcadeScore() {
+ const initials=document.getElementById('initials-input').value.trim().toUpperCase();
+
+ if(!/^[A-Z]{3}$/.test(initials)) {
+  alert('Ingresá exactamente tres letras.');
+  return;
+ }
+
+ const button=document.querySelector('#initials-modal button');
+ button.disabled=true;
+ button.textContent='GUARDANDO...';
+
+ try {
+  const result=await sendRankingAction({
+   action:'submit_score',
+   initials,
+   score:catcherScore
+  });
+
+  const saved=result.score;
+
+  pendingScoreEntry={
+   id:saved.id,
+   initials:saved.initials,
+   score:saved.score,
+   date:new Date(saved.created_at).getTime()
+  };
+
+  highlightedScoreId=pendingScoreEntry.id;
+
+  const modal=document.getElementById('initials-modal');
+  modal.classList.add('hidden');
+  modal.classList.remove('flex');
+
+  await openLeaderboardDirectly();
+
+ } catch(error) {
+  console.error(error);
+  alert('No se pudo guardar tu puntaje. Intentá nuevamente.');
+ } finally {
+  button.disabled=false;
+  button.textContent='GUARDAR RÉCORD';
+ }
+}
+
+// ==========================================
+// TABLA DE POSICIONES
+// ==========================================
+function renderLeaderboard(showNewEntryAtTop=false) {
+ const list=document.getElementById('leaderboard-list');
+ const badge=document.getElementById('total-competitors-badge');
+
+ badge.textContent=arcadeScores.length+' récords';
+
+ let rows=arcadeScores.slice();
+
+ if(showNewEntryAtTop&&pendingScoreEntry) {
+  rows=rows.filter(x=>x.id!==pendingScoreEntry.id);
+  rows.unshift(pendingScoreEntry);
+ }
+
+ list.innerHTML='';
+
+ const totalRows=Math.max(15,rows.length);
+
+ for(let i=0;i<totalRows;i++) {
+  const p=rows[i];
+
+  const row=document.createElement('div');
+
+  row.className='leaderboard-row '+(
+   p
+    ?'bg-slate-900 border border-slate-800'
+    :'bg-slate-950/50 border border-slate-800/60'
+  )+' rounded-lg px-2 py-1 text-sm flex items-center justify-between gap-3';
+
+  row.style.minHeight='32px';
+
+  if(p)row.dataset.scoreId=p.id;
+
+  const left=document.createElement('div');
+  left.className='flex items-center gap-3';
+
+  const rank=document.createElement('span');
+  rank.className='text-amber-400 font-black text-sm w-7';
+  rank.textContent='#'+(i+1);
+
+  const initials=document.createElement('strong');
+  initials.className='text-white text-base tracking-[.2em]';
+  initials.textContent=p?p.initials:'---';
+
+  left.append(rank,initials);
+
+  const points=document.createElement('strong');
+  points.className='text-emerald-400 text-sm whitespace-nowrap';
+  points.textContent=p?p.score+' pts':'— pts';
+
+  row.append(left,points);
+
+  if(p&&highlightedScoreId&&p.id===highlightedScoreId) {
+   row.classList.add('!bg-amber-400/20','!border-amber-300','ring-2','ring-amber-300');
+   initials.classList.add('!text-amber-200');
+   points.classList.add('!text-amber-200');
+  }
+
   list.append(row);
  }
- if(showNewEntryAtTop&&pendingScoreEntry){
+
+ if(showNewEntryAtTop&&pendingScoreEntry) {
   list.scrollTop=0;
+
   if(leaderboardHighlightTimer)clearTimeout(leaderboardHighlightTimer);
+
   leaderboardHighlightTimer=setTimeout(()=>{
    const oldPositions=new Map();
-   list.querySelectorAll('[data-score-id]').forEach(el=>oldPositions.set(el.dataset.scoreId,el.getBoundingClientRect().top));
+
+   list.querySelectorAll('[data-score-id]').forEach(el=>{
+    oldPositions.set(el.dataset.scoreId,el.getBoundingClientRect().top);
+   });
+
    renderLeaderboard(false);
+
    list.querySelectorAll('[data-score-id]').forEach(el=>{
     const oldTop=oldPositions.get(el.dataset.scoreId);
     if(oldTop===undefined)return;
+
     const newTop=el.getBoundingClientRect().top;
     const delta=oldTop-newTop;
-    if(Math.abs(delta)>1)el.animate([{transform:`translateY(${delta}px)`},{transform:'translateY(0)'}],{duration:900,easing:'cubic-bezier(.2,.75,.25,1)'});
+
+    if(Math.abs(delta)>1) {
+     el.animate(
+      [{transform:`translateY(${delta}px)`},{transform:'translateY(0)'}],
+      {duration:900,easing:'cubic-bezier(.2,.75,.25,1)'}
+     );
+    }
    });
-   const moved=document.querySelector(`[data-score-id="${pendingScoreEntry?.id||''}"]`);
-   if(moved){moved.classList.add('!bg-amber-400/20','!border-amber-300','ring-2','ring-amber-300');}
-   setTimeout(()=>{pendingScoreEntry=null;renderLeaderboard(false);},950);
+
+   const moved=document.querySelector(
+    `[data-score-id="${pendingScoreEntry?.id||''}"]`
+   );
+
+   if(moved) {
+    moved.classList.add('!bg-amber-400/20','!border-amber-300','ring-2','ring-amber-300');
+   }
+
+   setTimeout(()=>{
+    pendingScoreEntry=null;
+    renderLeaderboard(false);
+   },950);
+
   },3000);
  }
 }
-function openLeaderboardDirectly(){renderLeaderboard(!!pendingScoreEntry);const m=document.getElementById('leaderboard-modal');m.classList.remove('hidden');m.classList.add('flex');}
-function closeLeaderboardModal(){const m=document.getElementById('leaderboard-modal');m.classList.add('hidden');m.classList.remove('flex');}
-function prepareNextGame(){if(catcherActive)return;document.getElementById('catcher-overlay').classList.remove('hidden');document.getElementById('catcher-overlay').innerHTML='<div id="overlay-logo-fallback" class="w-20 h-20 rounded-full bg-pink-500/10 border-2 border-pink-500/50 flex items-center justify-center text-pink-300 text-2xl"><i class="fa-solid fa-bullseye"></i></div><img id="overlay-logo" alt="Logo" class="hidden w-24 h-24 object-contain rounded-full"><h3 class="text-xl font-black">TE INVITA A JUGAR</h3><p class="text-slate-300 text-sm max-w-md">Tenés 30 segundos para atrapar la mayor cantidad de pelotas. ¡Dejá tu récord en la tabla!</p><button onclick="startCatcherGame()" class="px-7 py-3 bg-gradient-to-r from-pink-500 to-rose-600 text-white rounded-xl text-sm font-extrabold shadow-lg">¡COMENZAR PARTIDA!</button>';updateOverlayLogo();document.getElementById('catcher-score').textContent='0';document.getElementById('catcher-time').textContent='30';}
-function authorizeLeaderboardClear(){
- const password=prompt('Ingresá la contraseña para limpiar la tabla:');
- if(password===null)return;
- if(password==='82318'){
-  const modal=document.getElementById('clear-leaderboard-modal');
-  modal.classList.remove('hidden');modal.classList.add('flex');
- }else{alert('Contraseña incorrecta.');}
+
+async function openLeaderboardDirectly() {
+ const modal=document.getElementById('leaderboard-modal');
+
+ modal.classList.remove('hidden');
+ modal.classList.add('flex');
+
+ const loaded=await loadRemoteRanking();
+
+ if(loaded&&pendingScoreEntry) {
+  renderLeaderboard(true);
+ }
 }
-function cancelClearLeaderboard(){
+
+function closeLeaderboardModal() {
+ const modal=document.getElementById('leaderboard-modal');
+ modal.classList.add('hidden');
+ modal.classList.remove('flex');
+}
+
+function prepareNextGame() {
+ if(catcherActive)return;
+
+ const overlay=document.getElementById('catcher-overlay');
+
+ overlay.classList.remove('hidden');
+
+ overlay.innerHTML=`
+  <div id="overlay-logo-fallback" class="w-20 h-20 rounded-full bg-pink-500/10 border-2 border-pink-500/50 flex items-center justify-center text-pink-300 text-2xl">
+   <i class="fa-solid fa-bullseye"></i>
+  </div>
+  <img id="overlay-logo" alt="Logo" class="hidden w-24 h-24 object-contain rounded-full">
+  <h3 class="text-xl font-black">TE INVITA A JUGAR</h3>
+  <p class="text-slate-300 text-sm max-w-md">Tenés 30 segundos para atrapar la mayor cantidad de pelotas. ¡Dejá tu récord en la tabla!</p>
+  <button onclick="startCatcherGame()" class="px-7 py-3 bg-gradient-to-r from-pink-500 to-rose-600 text-white rounded-xl text-sm font-extrabold shadow-lg">¡COMENZAR PARTIDA!</button>
+ `;
+
+ updateOverlayLogo();
+
+ document.getElementById('catcher-score').textContent='0';
+ document.getElementById('catcher-time').textContent='30';
+}
+
+// ==========================================
+// LIMPIEZA DEL RANKING - SERVIDOR
+// ==========================================
+function authorizeLeaderboardClear() {
  const modal=document.getElementById('clear-leaderboard-modal');
- modal.classList.add('hidden');modal.classList.remove('flex');
+ modal.classList.remove('hidden');
+ modal.classList.add('flex');
 }
-function confirmClearLeaderboard(){
- if(leaderboardHighlightTimer)clearTimeout(leaderboardHighlightTimer);
- leaderboardHighlightTimer=null;pendingScoreEntry=null;highlightedScoreId=null;arcadeScores=[];
- safeStorageRemove(SCORES_KEY);
- cancelClearLeaderboard();renderLeaderboard(false);
+
+function cancelClearLeaderboard() {
+ const modal=document.getElementById('clear-leaderboard-modal');
+ modal.classList.add('hidden');
+ modal.classList.remove('flex');
 }
-function authorizeQrChange(){const password=prompt('Ingresá la contraseña para cambiar el QR:');if(password===null)return;if(password==='82318'){document.getElementById('qr-file-input').click();}else{alert('Contraseña incorrecta.');}}
-function loadCustomQrFile(event){
- const file=event.target.files&&event.target.files[0];if(!file)return;
- if(!file.type.startsWith('image/')){alert('Seleccioná un archivo de imagen.');return;}
- const reader=new FileReader();reader.onload=e=>{document.getElementById('sorteo-qr-img').src=e.target.result;if(!safeStorageSet(QR_KEY,e.target.result)){alert('El QR se cargó para esta sesión, pero el navegador no permitió guardarlo para próximas visitas.');}};reader.readAsDataURL(file);event.target.value='';
+
+async function confirmClearLeaderboard() {
+ const password=prompt('Ingresá la contraseña de administrador:');
+
+ if(password===null)return;
+
+ try {
+  await sendRankingAction({
+   action:'clear_ranking',
+   password
+  });
+
+  if(leaderboardHighlightTimer) {
+   clearTimeout(leaderboardHighlightTimer);
+  }
+
+  leaderboardHighlightTimer=null;
+  pendingScoreEntry=null;
+  highlightedScoreId=null;
+
+  cancelClearLeaderboard();
+  await loadRemoteRanking();
+
+  alert('La tabla de posiciones se limpió correctamente.');
+
+ } catch(error) {
+  console.error(error);
+
+  alert(
+   error.message==='Contraseña incorrecta'
+    ?'Contraseña incorrecta.'
+    :'No se pudo limpiar el ranking. Intentá nuevamente.'
+  );
+ }
 }
-function resizeCanvas(){if(catcherActive)return;const c=document.getElementById('catcherCanvas');c.width=c.clientWidth;c.height=c.clientHeight;}
+
+// ==========================================
+// CAMBIO DEL QR
+// ==========================================
+function authorizeQrChange() {
+ const password=prompt('Ingresá la contraseña para cambiar el QR:');
+
+ if(password===null)return;
+
+ if(password==='82318') {
+  alert('Para cambiar el QR de todos los visitantes, reemplazá el archivo "qr de inta noviembre.png" en Supabase Storage, dentro del bucket "imagenes". Conservá exactamente el mismo nombre.');
+ } else {
+  alert('Contraseña incorrecta.');
+ }
+}
+
+// ==========================================
+// REDIMENSIONAMIENTO E INICIO
+// ==========================================
+function resizeCanvas() {
+ if(catcherActive)return;
+
+ const canvas=document.getElementById('catcherCanvas');
+ canvas.width=canvas.clientWidth;
+ canvas.height=canvas.clientHeight;
+}
+
 window.addEventListener('resize',resizeCanvas);
-window.addEventListener('load',()=>{resizeCanvas();renderLeaderboard();updateOverlayLogo();const savedQr=safeStorageGet(QR_KEY);if(savedQr)document.getElementById('sorteo-qr-img').src=savedQr;});
+
+window.addEventListener('load',async()=>{
+ resizeCanvas();
+ updateOverlayLogo();
+
+ document.getElementById('sorteo-qr-img').src=QR_URL;
+
+ await loadRemoteRanking();
+});
 </script>
 </body>
 </html>
